@@ -1,74 +1,51 @@
 ﻿@{
-    ViewData["Title"] = "ComparaBien";
+    ViewData["Title"] = "Bienvenido";
 }
 
-<h4><center>Bienvenido a tu pagina web favorita</center></h4>
-<br /> 
-
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Calculadora de Interés</title>
-    <script>
-        function calcularInteres() {
-            var capital = parseFloat(document.getElementById("capital").value);
-            var tasaInteres = parseFloat(document.getElementById("tasaInteres").value);
-            var tiempo = parseFloat(document.getElementById("tiempo").value);
-            var moneda = document.getElementById("moneda").value;
-            var interes = (capital * tasaInteres * tiempo) / 100;
-            var total = capital + interes;
-
-            var monedaTexto = moneda === "dolares" ? "dólares" : "soles";
-            document.getElementById("interes").innerHTML = "Interés: " + interes.toFixed(2) + " " + monedaTexto;
-            document.getElementById("total").innerHTML = "Total con interés: " + total.toFixed(2) + " " + monedaTexto;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fondo Responsivo</title>
+    <style>
+        /* Estilo para el contenedor de la imagen */
+        .imagen {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            background-image: url(""); /* Reemplaza 'tu-imagen.jpg' con la ruta de tu imagen */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
         }
 
-        function limpiarCampos() {
-            document.getElementById("capital").value = "";
-            document.getElementById("tasaInteres").value = "";
-            document.getElementById("tiempo").value = "";
-            document.getElementById("moneda").value = "dolares";
-            document.getElementById("interes").innerHTML = "Interés: ";
-            document.getElementById("total").innerHTML = "Total con interés: ";
+        /* Estilo para el contenido que se superpone en la imagen */
+        .imagen {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #fff;
+            background-color: #fff; /* Fondo semitransparente */
+            padding: 10px;
         }
-    </script>
+    </style>
 </head>
 <body>
-    <h1><center>Calculadora de Interés Simple</center></h1>
-    <br />
-    <center>
-        <label for="moneda">Moneda:</label>
-        <select id="moneda">
-            <option value="dolares">Dólares</option>
-            <option value="soles">Soles</option>
-        </select>
-    </center>
-    <br>
-
-    <center>
-        <label for="capital">Capital:</label>
-        <input type="number" id="capital">
-    </center>
-    <br>
-
-    <center>
-        <label for="tasaInteres">Tasa de Interés (%):</label>
-        <input type="number" id="tasaInteres">
-    </center>
-    <br>
-
-    <center>
-        <label for="tiempo">Tiempo (años):</label>
-        <input type="number" id="tiempo">
-    </center>
-    <br>
-
-    <center>
-        <button onclick="calcularInteres()">Calcular Interés</button>
-        <button onclick="limpiarCampos()">Limpiar</button>
-    </center>
-
-    <center><p id="interes">Interés: </p></center>
-    <center><p id="total">Total con interés: </p></center>
+    <br /> <br /> <br />
+    <div class="imagen">
+        <!-- Contenido que se superpone en la imagen -->
+        <div class="contenido-superpuesto">
+            <img src="data:image/png;base64,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" />
+        </div>
+    </div>
+    <div>
+        <br /> <br /> <br /> <br /> <br /> <br />
+        <h3><center>Trabajo Final</center></h3> <br />
+        <h4><center>Proyecto en avance</center></h4>
+    </div>
 </body>
 </html>

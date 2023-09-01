@@ -12,7 +12,10 @@ namespace Trabajo_Finanzas_V1.Controllers
         {
             _logger = logger;
         }
-
+        public IActionResult Int()
+        {
+            return View();
+        }
         public IActionResult Index()
         {
             return View();
