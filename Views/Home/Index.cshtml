@@ -1,0 +1,74 @@
+﻿@{
+    ViewData["Title"] = "ComparaBien";
+}
+
+<h4><center>Bienvenido a tu pagina web favorita</center></h4>
+<br /> 
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculadora de Interés</title>
+    <script>
+        function calcularInteres() {
+            var capital = parseFloat(document.getElementById("capital").value);
+            var tasaInteres = parseFloat(document.getElementById("tasaInteres").value);
+            var tiempo = parseFloat(document.getElementById("tiempo").value);
+            var moneda = document.getElementById("moneda").value;
+            var interes = (capital * tasaInteres * tiempo) / 100;
+            var total = capital + interes;
+
+            var monedaTexto = moneda === "dolares" ? "dólares" : "soles";
+            document.getElementById("interes").innerHTML = "Interés: " + interes.toFixed(2) + " " + monedaTexto;
+            document.getElementById("total").innerHTML = "Total con interés: " + total.toFixed(2) + " " + monedaTexto;
+        }
+
+        function limpiarCampos() {
+            document.getElementById("capital").value = "";
+            document.getElementById("tasaInteres").value = "";
+            document.getElementById("tiempo").value = "";
+            document.getElementById("moneda").value = "dolares";
+            document.getElementById("interes").innerHTML = "Interés: ";
+            document.getElementById("total").innerHTML = "Total con interés: ";
+        }
+    </script>
+</head>
+<body>
+    <h1><center>Calculadora de Interés Simple</center></h1>
+    <br />
+    <center>
+        <label for="moneda">Moneda:</label>
+        <select id="moneda">
+            <option value="dolares">Dólares</option>
+            <option value="soles">Soles</option>
+        </select>
+    </center>
+    <br>
+
+    <center>
+        <label for="capital">Capital:</label>
+        <input type="number" id="capital">
+    </center>
+    <br>
+
+    <center>
+        <label for="tasaInteres">Tasa de Interés (%):</label>
+        <input type="number" id="tasaInteres">
+    </center>
+    <br>
+
+    <center>
+        <label for="tiempo">Tiempo (años):</label>
+        <input type="number" id="tiempo">
+    </center>
+    <br>
+
+    <center>
+        <button onclick="calcularInteres()">Calcular Interés</button>
+        <button onclick="limpiarCampos()">Limpiar</button>
+    </center>
+
+    <center><p id="interes">Interés: </p></center>
+    <center><p id="total">Total con interés: </p></center>
+</body>
+</html>
