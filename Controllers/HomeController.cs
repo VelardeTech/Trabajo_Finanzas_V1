@@ -12,7 +12,7 @@ namespace Trabajo_Finanzas_V1.Controllers
         {
             _logger = logger;
         }
-        public IActionResult Int()
+        public IActionResult PlanDePagos()
         {
             return View();
         }
@@ -21,12 +21,17 @@ namespace Trabajo_Finanzas_V1.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Desarrolladores()
         {
             return View();
         }
 
         public IActionResult Somos()
+        {
+            return View();
+        }
+
+        public IActionResult Login()
         {
             return View();
         }
