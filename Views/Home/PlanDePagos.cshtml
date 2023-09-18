@@ -6,27 +6,71 @@
 <head>
 
     <style>
-        .conten {
+        .conten {  /*BODY HTML AL LADO IZQUIERDO*/
             font-size: 15px;
+            /*text-align: center;   Centrar el contenido del div */
         }
 
-        tablaPlanPagos{
-            padding: 15px;
-            font-size: 15px;
+        table {
+            width: 80%; /* Ancho de la tabla al 100% del div */
+            border-collapse: collapse; /* Colapsar todos los bordes */
         }
 
+        th, td {
+            padding: 5px 5px;
+            font-size: 15px;
+            border: 1px solid #000; /* Borde para todas las celdas */
+            text-align: center; /* Centrar el contenido horizontalmente */
+            vertical-align: middle; /* Centrar el contenido verticalmente */
+        }
+
+        /* Estilos adicionales para el encabezado */
         th {
-            padding: 15px;
+            background-color: #f2f2f2; /* Color de fondo */
+        }
+
+
+        /*BOTENES -------------------------------------------------------------------*/
+
+        .calcular{
+            padding: 7px 18px;
+            border-radius: 5px;
+            color: white;
+            background: #4A890F
+        }
+        .limpiar{
+            padding: 7px 18px;
+            border-radius: 5px;
+            color: white;
+            background: #4A890F
+        }
+        .pdf{
+            padding: 7px 18px;
+            border-radius: 5px;
+            color: white;
+            background: #4A890F
+        }
+        .tabla{
             font-size: 15px;
         }
+       
     </style>
 </head>
 <body>
-    <h5><center>Plan de pagos del crédito vehicular en Perú</center></h5>
+    <h5><center>Plan de pagos del crédito vehicular en Perú</center></h5> <hr />
     <div class="conten">
         <form id="formulario">
+
+            <label for="tipoCarro">Vehiculo:</label>
+            <select id="tipoCarro" name="tipoCarro">
+                <option value="Nuevo">Vehiculo Nuevo</option>
+                <option value="Seminuevo">Vehiculo Seminuevo</option>
+                <option value="Electrico">Vehiculo Electrico</option>
+            </select><br><br>
+
             <label for="tipoBanco">Centro financiera:</label>
             <select id="tipoBanco" name="tipoBanco">
+                <!--BANCOS-->
                 <option value="banco1">BANBIF</option>
                 <option value="banco2">BANCO DE CREDITO</option>
                 <option value="banco3">BANCO GNB</option>
@@ -34,11 +78,15 @@
                 <option value="banco5">BBVA</option>
                 <option value="banco6">INTERBANK</option>
                 <option value="banco7">SCOTIABANK PERU</option>
-                <option value="banco8">CAJA AREQUIPA</option>
-                <option value="banco9">CAJA CUSCO</option>
-                <option value="banco10">CAJA HUANCAYO</option>
-                <option value="banco11">CAJA ICA</option>
-
+                <!--EMPRESAS FINANCIERAS-->
+                <option value="banco8">FINANC.PROEMPRESA</option>
+                <option value="banco9">MITSUIAUTO FINANCE</option>
+                <!--CAJAS MUNICIPALES-->
+                <option value="banco10">CMAC AREQUIPA</option>
+                <option value="banco11">CMAC CUSCO</option>
+                <option value="banco12">CMAC DEL SANTA</option>
+                <option value="banco13">CMAC HUANCAYO</option>
+                <option value="banco14">CMAC ICA</option>
             </select><br><br>
 
             <label for="tipoMoneda">Tipo de Moneda:</label>
@@ -59,14 +107,16 @@
             <label for="tea">Tasa de Interés Anual (TEA):</label>
             <input type="number" id="tea" name="tea" step="0.01" required><br><br>
 
-            <input type="submit" value="Calcular">
-            <button type="button" id="limpiar">Simular de Nuevo</button>
-
-
+            <center>
+                <input class="calcular" type="submit" value="Calcular">
+                <button class="limpiar" type="button" id="limpiar">Simular de Nuevo</button>
+                <button class="pdf" type="button" id="pdf">Generar PDF</button>
+            </center>
 
         </form>
         <hr />
         <h5><center>Mis planes de pagos mensuales</center></h5>
+        <hr />
         <table id="tablaPlanPagos">
             <thead>
                 <tr>
@@ -78,22 +128,23 @@
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody class="tabla">
                 <!--IMPRIMIR-->
             </tbody>
-
+            
             <tfoot>
                 <tr>
-                   
+
                     <th>Total</th>
                     <th id="totalCuotaMensual">0.00</th>
                     <th id="totalInteresMensual">0.00</th>
                     <th id="totalAmortizacion">0.00</th>
                     <th id="totalSaldoFinal">0.00</th>
-                  
+
                 </tr>
             </tfoot>
         </table>
+        <hr />
     </div>
 
     <script>
@@ -106,7 +157,7 @@
             const bancoSeleccionado = document.getElementById("tipoBanco").value;
             const tea = parseFloat(document.getElementById("tea").value);
 
-            // Verificar si la TEA está dentro del rango permitido   SINO alerta 
+            // Verificar si la TEA está dentro del rango permitido   SINO alerta
             if (tea < rangosTEA[bancoSeleccionado].min || tea > rangosTEA[bancoSeleccionado].max) {
                 alert(`La TEA debe estar entre ${rangosTEA[bancoSeleccionado].min}% y ${rangosTEA[bancoSeleccionado].max}% para ${bancoSeleccionado}.`);
                 return;
@@ -203,6 +254,7 @@
 
         // Definir rangos de TEA por banco
         const rangosTEA = {
+            //BANCOS
             banco1: { min: 8.99, max: 24.99 },
             banco2: { min: 10.64, max: 17.15 },
             banco3: { min: 10.50, max: 11.90 },
@@ -210,24 +262,36 @@
             banco5: { min: 8.49, max: 24.99 },
             banco6: { min: 14.09, max: 14.09 },
             banco7: { min: 8.99, max: 14.99 },
+            //EMPRESAS FINANCIERAS
+            banco8: { min: 0.1, max: 20.89 },
+            banco9: { min: 10.99, max: 32.49 },
             //CAJAS
-            banco8: { min: 15.53, max: 15.53 },
-            banco9: { min: 15.39, max: 15.39 },
-            banco10: { min: 26.82, max: 77.50 },
-            banco11: { min: 13.60, max: 32.92 },
+            banco10: { min: 15.53, max: 15.53 },
+            banco11: { min: 15.39, max: 15.39 },
+            banco12: { min: 0.1, max: 2000 },
+            banco13: { min: 26.82, max: 77.50 },
+            banco14: { min: 13.60, max: 32.92 },
         };
-        //< option value = "banco1" > BANBIF < /option>
-        //< option value = "banco2" > BANCO DE CREDITO < /option>
-        //< option value = "banco3" > BANCO GNB < /option>
-        //< option value = "banco4" > BANCO PICHINCHA < /option>
-        //< option value = "banco5" > BBVA < /option>
-        //< option value = "banco6" > INTERBANK < /option>
-        //< option value = "banco7" > SCOTIABANK PERU < /option>
-        //< option value = "banco8" > CAJA AREQUIPA < /option>
-        //< option value = "banco9" > CAJA CUSCO < /option>
-        //< option value = "banco10" > CAJA HUANCAYO < /option>
-        //< option value = "banco11" > CAJA ICA < /option>
-       
+
+                 //Coment
+                 //<!--BANCOS-->
+                 //<option value="banco1" > BANBIF < /option>
+                 //< option value = "banco2" > BANCO DE CREDITO < /option>
+                 //< option value = "banco3" > BANCO GNB < /option>
+                 //< option value = "banco4" > BANCO PICHINCHA < /option>
+                 //< option value = "banco5" > BBVA < /option>
+                 //< option value = "banco6" > INTERBANK < /option>
+                 //< option value = "banco7" > SCOTIABANK PERU < /option>
+                 //< !--EMPRESAS FINANCIERAS-- >
+                 //<option value="banco8" > FINANC.PROEMPRESA < /option>
+                 //< option value = "banco9" > MITSUIAUTO FINANCE < /option>
+                 //< !--CAJAS MUNICIPALES-- >
+                 //<option value=   "banco10" > CMAC AREQUIPA < /option>
+                 //< option value = "banco11" > CMAC CUSCO < /option>
+                 //< option value = "banco12" > CMAC DEL SANTA < /option>
+                 //< option value = "banco13" > CMAC HUANCAYO < /option>
+                 //< option value = "banco14" > CMAC ICA < /option>
+
     </script>
 </body>
 </html>
