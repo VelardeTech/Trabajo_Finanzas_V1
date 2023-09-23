@@ -1,7 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using Trabajo_Finanzas_V1.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<BdFianzasContext>(options =>
+    options.UseMySql(builder.Configuration.GetConnectionString("conexion"), Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.33-mysql")));
 
 var app = builder.Build();
 
