@@ -1,8 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Trabajo_Finanzas_V1.Models.Cliente
 
 <!DOCTYPE html>
 <html>
@@ -23,8 +19,8 @@
 <body>
     <br /><br />
     <div class="Login">
-        <h1><center>Iniciar sesión</center></h1> <br />
-        <form id="loginForm">
+        <h1>Iniciar sesión</h1> <br />
+        @* <form id="loginForm">
             <center>
                 <div>
                     <label for="username">Nombre de usuario:</label>
@@ -40,10 +36,23 @@
                     <input type="submit" value="Iniciar sesión">
                 </div>
             </center>
+        </form> *@
+        <form asp-action="Login">
+            <input type="hidden" asp-for="IdUser" />
+            <div class="form-group">
+                <label asp-for="CorreoElectronico">Correo electrónico</label>
+                <input asp-for="CorreoElectronico" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Contrasena">Contraseña</label>
+                <input asp-for="Contrasena" class="form-control" />
+            </div>
+            <br />
+            <button type="submit" class="btn btn-primary">Iniciar sesión</button>
         </form>
     </div>
 
-    <script>
+    @* <script>
         function validarFormulario() {
             var username = document.getElementById("username").value;
             var password = document.getElementById("password").value;
@@ -59,7 +68,7 @@
             // Si todo está bien, puedes permitir que el formulario se envíe
             return true;
         }
-    </script>
+    </script> *@
 </body>
 </html>
 
