@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Trabajo_Finanzas_V1.Models;
 
 namespace Trabajo_Finanzas_V1.Controllers
@@ -33,6 +36,13 @@ namespace Trabajo_Finanzas_V1.Controllers
         {
             return View();
         }
+        
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Session.Remove("UsuarioLogueado");
+            return RedirectToAction("Index", "Home");
+        }
 
         public IActionResult Login()
         {
@@ -41,17 +51,27 @@ namespace Trabajo_Finanzas_V1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public Task<IActionResult> Login(int id, string correo, string contrasena)
+        public IActionResult Login(string correo, string contrasena)
         {
-            try
+            var cliente = _context.Clientes.FirstOrDefault(x => x.CorreoElectronico == correo && x.Contrasena == contrasena);
+            if (cliente != null)
             {
-                var cliente = _context.Clientes.FirstOrDefault(x => x.IdUser == id && x.CorreoElectronico == correo && x.Contrasena == contrasena);
-                return Task.FromResult<IActionResult>(RedirectToAction("PlanDePagos", "Home"));
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Email, cliente.CorreoElectronico),
+                    new Claim(ClaimTypes.Hash, cliente.Contrasena)
+                };
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                HttpContext.SignInAsync(claimsPrincipal);
+                HttpContext.Session.SetString("UsuarioLogueado", "true");
+                return RedirectToAction("PlanDePagos", "Home");
             }
-            catch (Exception ex)
+            else
             {
-                ViewBag.Error = ex.Message;
-                return Task.FromResult<IActionResult>(View());
+                ViewData["UsuarioLogeado"] = false;
+                ViewBag.Error = "Credenciales inválidas";
+                return View();
             }
         }
 

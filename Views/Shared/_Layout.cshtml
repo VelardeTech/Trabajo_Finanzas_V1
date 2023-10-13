@@ -31,30 +31,57 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 
-                <center>
+                <div style="text-align: center;">
                     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"></a>
                             </li>
-                            @* <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="PlanDePagos"><button class="b1">Credito vehicular</button></a>
-                            </li> *@
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Desarrolladores"><button class="b1">Desarrolladores</button></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Somos"><button class="b1">Quienes Somos</button></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login"><button class="b1">Login</button></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Register"><button class="b1">Register</button></a>
-                            </li>
+                        
+                            @{
+                                var usuarioLogeado = ViewData["UsuarioLogeado"] as bool?;
+                            }
+
+                            @if (usuarioLogeado == null || !usuarioLogeado.Value)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Desarrolladores">
+                                        <button class="b1">Desarrolladores</button>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Somos">
+                                        <button class="b1">Quienes Somos</button>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">
+                                        <button class="b1">Iniciar Sesión</button>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Register">
+                                        <button class="b1">Register</button>
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                            
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="PlanDePagos">
+                                        <button class="b1">Plan de Pagos</button>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">
+                                        <button class="b1">Cerrar Sesión</button>
+                                    </a>
+                                </li>
+                            } 
                         </ul>
                     </div>
-                </center>
+                </div>
             </div>
         </nav>
     </header>
@@ -66,7 +93,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container_s">
-            <h4><center>Universidad Peruana De Ciencias Aplicadas</center></h4>
+            <h4><div style="text-align: center;">Universidad Peruana De Ciencias Aplicadas</div></h4>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
