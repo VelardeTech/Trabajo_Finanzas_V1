@@ -74,6 +74,7 @@ namespace Trabajo_Finanzas_V1.Controllers
                 return View();
             }
         }
+        sexo
 
         public IActionResult Register()
         {
